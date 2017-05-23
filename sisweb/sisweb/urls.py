@@ -29,4 +29,5 @@ urlpatterns = [
     url('^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
+    url('r^newfavtrip', FavoriteTripView)
 ]
