@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%  block content %}
+    {%  if  form.errors  %}
+        <p>Your  username  and  password  didn't  match.  Please  try  again.</p>
+    {%  endif  %}
+
+        <div style="width:400px; margin-right:auto; margin-left:auto; border:1px solid #000;"></div>
+            <h2>  Register your account  </h2>
+            <form  method="post" >
+                {{ form|crispy }}
+                {%  csrf_token  %}
+                <hr>
+                 <input type="submit" value="Submit" class="btn btn-success">
+            </form>
+        </div>
+{%  endblock %}
