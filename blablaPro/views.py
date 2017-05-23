@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.contrib.auth.decorators import login_required
+
 from models import FavoriteTrip
 from forms import FavoriteTripForm
 
 from django.shortcuts import render
 
 # Create your views here.
+@login_required
 def FavoriteTripView(request):
     if request.method == 'GET':
         return render(request, 'FavoriteTrip.html', {
@@ -26,3 +30,14 @@ def FavoriteTripView(request):
                 'PageTitle': "Add your favorite trip",
                 'form': favorite_trip_form
             })
+
+@login_required
+def UserProfile(request):
+    username = None
+    if request.user.is_authenticated():
+        username = request.user.username
+        return render(request, 'profile.html',{
+            'TitleHeader': "User profile",
+            'PageTitle': "Profile",
+            'username': username
+        })
