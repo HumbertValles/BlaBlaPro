@@ -9,7 +9,10 @@ from forms import FavoriteTripForm
 
 from django.shortcuts import render
 
-# Create your views here.
+
+def homepage(request):
+    return render(request,'homepage.html')
+
 @login_required
 def FavoriteTripView(request):
     if request.method == 'GET':
@@ -52,3 +55,5 @@ class FavoriteTripListView(ListView):
         context = super(FavoriteTripListView, self).get_context_data(**kwargs)
         favorite_trip = FavoriteTrip.objects.filter(user=self.request.user).order_by('departure_place')
         context['user_favorite_trip'] = list(favorite_trip)
+
+
