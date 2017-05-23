@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <hr>
+    <a href="/newfavtrip">Add a new trip</a>
+    <div class="container">
+        {% for trip in user_favorite_trip %}
+            <p>{{ trip.departure_place }}</p>
+            <p>{{ trip.arrival_place }}</p>
+            <p>{{ trip.departure_time }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
