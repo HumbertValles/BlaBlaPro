@@ -9,7 +9,7 @@ class FavoriteTrip(models.Model):
     departure_place = models.CharField(max_length=100)
     arrival_place = models.CharField(max_length=100)
     departure_time = models.DateTimeField()
-    user = models.ForeignKey(User, default=1)
+    user = models.ForeignKey(User)
 
 
 class Driver(models.Model):

@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-
 from models import FavoriteTrip
 from forms import FavoriteTripForm
 
@@ -24,9 +23,9 @@ def FavoriteTripView(request):
     elif request.method == 'POST':
         favorite_trip_form = FavoriteTripForm(request.POST)
         if favorite_trip_form.is_valid():
-            user = request.user
-            favorite_trip_form.user = user
-            favorite_trip_form.save()
+            favorite_trip = favorite_trip_form.save(commit=False)
+            favorite_trip.user = request.user
+            favorite_trip.save()
             return render(request,'FavoriteTripList.html')
         else:
             return render (request, 'FavoriteTrip.html',{
@@ -55,3 +54,4 @@ class FavoriteTripListView(ListView):
         context = super(FavoriteTripListView, self).get_context_data(**kwargs)
         favorite_trip = FavoriteTrip.objects.filter(user=self.request.user).order_by('departure_place')
         context['user_favorite_trip'] = list(favorite_trip)
+        return context

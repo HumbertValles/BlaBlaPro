@@ -4,10 +4,11 @@
     <a href="/newfavtrip">Add a new trip</a>
     <div class="container">
         {% for trip in user_favorite_trip %}
-            <p>{{ trip.departure_place }}</p>
-            <p>{{ trip.arrival_place }}</p>
-            <p>{{ trip.departure_time }}</p>
-            <p>oda</p>
+            <hr style="border-top: 1px solid #8c8b8b;">
+            <p>Departure place: {{ trip.departure_place }}</p>
+            <p>Arrival place: {{ trip.arrival_place }}</p>
+            <p>Trip date/time: {{ trip.departure_time }}</p>
         {% endfor %}
+            <hr style="border-top: 1px solid #8c8b8b;">
     </div>
 {% endblock %}
