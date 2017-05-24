@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {%  block content %}
     <h2>Welcome, {{ username }}</h2>
-    <a href="/newfavtrip">Manage your favorite trips</a>
+    <a href='/newfavtrip/{{ user.id }}' value="1">Manage your favorite trips</a>
 
 {%  endblock %}

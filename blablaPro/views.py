@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
+from django.views.generic import CreateView
 from django.views.generic import ListView
 from models import FavoriteTrip
 from forms import FavoriteTripForm
@@ -11,7 +12,7 @@ from django.shortcuts import render
 
 def homepage(request):
     return render(request,'homepage.html')
-
+"""
 @login_required
 def FavoriteTripView(request):
     if request.method == 'GET':
@@ -26,13 +27,24 @@ def FavoriteTripView(request):
             favorite_trip = favorite_trip_form.save(commit=False)
             favorite_trip.user = request.user
             favorite_trip.save()
-            return render(request,'FavoriteTripList.html')
+            return render(request,'FavoriteTripList')
         else:
             return render (request, 'FavoriteTrip.html',{
                 'TitleHeader': "FavoriteTrip",
                 'PageTitle': "Add your favorite trip",
                 'form': favorite_trip_form
             })
+"""
+
+class CreateTrip(CreateView):
+    model = FavoriteTrip
+    template_name = 'FavoriteTrip.html'
+    form_class = FavoriteTripForm
+    success_url = "/favtriplist/1"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreateTrip, self).form_valid(form)
 
 @login_required
 def UserProfile(request):
@@ -48,7 +60,6 @@ def UserProfile(request):
 class FavoriteTripListView(ListView):
     model = FavoriteTrip
     template_name = 'FavoriteTripList.html'
-    success_url = "/"
 
     def get_context_data(self, **kwargs):
         context = super(FavoriteTripListView, self).get_context_data(**kwargs)

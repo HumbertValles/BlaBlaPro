@@ -20,7 +20,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import login, logout
 
-from blablaPro.views import FavoriteTripView, UserProfile
+from blablaPro.views import UserProfile
 
 urlpatterns = [
     url(r'', include('blablaPro.urls', namespace='Trips')),
