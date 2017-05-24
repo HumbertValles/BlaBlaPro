@@ -2,13 +2,17 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 from models import FavoriteTrip
 from forms import FavoriteTripForm
 
 from django.shortcuts import render
 
-# Create your views here.
+
+def homepage(request):
+    return render(request,'homepage.html')
+
 @login_required
 def FavoriteTripView(request):
     if request.method == 'GET':
@@ -23,7 +27,7 @@ def FavoriteTripView(request):
             user = request.user
             favorite_trip_form.user = user
             favorite_trip_form.save()
-            #return redirect(profile) it will return to your profile with the new favorite trip added
+            return render(request,'FavoriteTripList.html')
         else:
             return render (request, 'FavoriteTrip.html',{
                 'TitleHeader': "FavoriteTrip",
@@ -41,3 +45,13 @@ def UserProfile(request):
             'PageTitle': "Profile",
             'username': username
         })
+
+class FavoriteTripListView(ListView):
+    model = FavoriteTrip
+    template_name = 'FavoriteTripList.html'
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        context = super(FavoriteTripListView, self).get_context_data(**kwargs)
+        favorite_trip = FavoriteTrip.objects.filter(user=self.request.user).order_by('departure_place')
+        context['user_favorite_trip'] = list(favorite_trip)

@@ -2,11 +2,12 @@
 {% load crispy_forms_tags %}
 {%  block content %}
     {%  if  form.errors  %}
-        <p>Your  username  and  password  didn't  match.  Please  try  again.</p>
+        <p>There are some errors in your new favorite trip, fix them.</p>
     {%  endif  %}
 
         <div style="width:400px; margin-right:auto; margin-left:auto; border:1px solid #000;"></div>
-            <h2>  Register your account  </h2>
+            <h2>{{ PageTitle }}</h2>
+            <p>Adding your fauvorite trips to the list will help you to find similar trips automatically</p>
             <form  method="post" >
                 {{ form|crispy }}
                 {%  csrf_token  %}

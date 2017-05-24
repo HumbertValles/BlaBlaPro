@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class FavoriteTrip(models.Model):
-    departure_place = models.TextField(max_length=100)
-    arrival_place = models.TextField(max_length=100)
+    departure_place = models.CharField(max_length=100)
+    arrival_place = models.CharField(max_length=100)
     departure_time = models.DateTimeField()
     user = models.ForeignKey(User, default=1)
 
